@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: nginx-file-log-demo
+  namespace: default
+spec:
+  template:
+    metadata:
+      name: nginx-file-log-demo
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: nginx-file-log-demo
+        image: registry.cn-hangzhou.aliyuncs.com/log-service/docker-log-test:latest
+        command: ["/bin/mock_log"]
+        args: ["--log-type=nginx", "--stdout=false", "--stderr=false", "--path=/var/log/access.log", "--total-count=100000000", "--logs-per-sec=5"]

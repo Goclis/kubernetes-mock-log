@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: nginx-stdout-log-demo
+spec:
+  template:
+    metadata:
+      name: nginx-stdout-log-demo
+    spec:
+      containers:
+      - name: nginx-stdout-log-demo
+        image: registry.cn-hangzhou.aliyuncs.com/log-service/docker-log-test:latest
+        command: ["/bin/mock_log"]
+        args: ["--stderr=false", "--stdout=true", "--log-type=nginx", "--total-count=100000000", "--logs-per-sec=5"]
+      restartPolicy: Never
