@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: nginx-file-log-demo
-  namespace: default
+  namespace: nginx-file
 spec:
   template:
     metadata:

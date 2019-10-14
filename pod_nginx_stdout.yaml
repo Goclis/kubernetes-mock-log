@@ -1,15 +1,35 @@
+# 创建两个 pod 来生成 mock 数据
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: nginx-stdout-log-demo
+  name: nginx-stdout-log-demo-1
+  namespace: nginx-stdout
 spec:
   template:
     metadata:
-      name: nginx-stdout-log-demo
+      name: nginx-stdout-log-demo-1
     spec:
       containers:
-      - name: nginx-stdout-log-demo
+      - name: nginx-stdout-log-demo-1
         image: registry.cn-hangzhou.aliyuncs.com/log-service/docker-log-test:latest
-        command: ["/bin/mock_log"]
-        args: ["--stderr=false", "--stdout=true", "--log-type=nginx", "--total-count=100000000", "--logs-per-sec=5"]
+        command: [/bin/mock_log]
+        args: [--stderr=false, --stdout=true, --log-type=nginx, --total-count=100000000, --logs-per-sec=5]
+      restartPolicy: Never
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: nginx-stdout-log-demo-2
+  namespace: nginx-stdout
+spec:
+  template:
+    metadata:
+      name: nginx-stdout-log-demo-2
+    spec:
+      containers:
+      - name: nginx-stdout-log-demo-2
+        image: registry.cn-hangzhou.aliyuncs.com/log-service/docker-log-test:latest
+        command: [/bin/mock_log]
+        args: [--stderr=false, --stdout=true, --log-type=nginx, --total-count=100000000, --logs-per-sec=5]
+
       restartPolicy: Never
